@@ -24,8 +24,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/create_button"
-            android:id="@+id/buttonCreate"
+            android:text="@string/filter_button"
+            android:id="@+id/buttonFilter"
             android:layout_gravity="center" />
     </LinearLayout>
 
@@ -37,5 +37,5 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="rocks.crisjr.partiusketch.CreateActivity" />
+        tools:context="rocks.crisjr.partiusketch.SearchActivity" />
 </LinearLayout>

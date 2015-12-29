@@ -49,14 +49,14 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         MapController controller = new MapController(getApplicationContext());
         LinearLayout layoutMenu = (LinearLayout) findViewById(R.id.layoutMenu);
         Button buttonCollapse = (Button) findViewById(R.id.buttonCollapse);
-        Button buttonFilter = (Button) findViewById(R.id.buttonFilter);
+        Button buttonCreate = (Button) findViewById(R.id.buttonCreate);
 
         if (menuCollapsed) {
-            buttonFilter.setVisibility(View.VISIBLE);
+            buttonCreate.setVisibility(View.VISIBLE);
             buttonCollapse.setText("<<<");
             layoutMenu.getLayoutParams().width = controller.convertDiptoPix(150);
         } else {
-            buttonFilter.setVisibility(View.INVISIBLE);
+            buttonCreate.setVisibility(View.INVISIBLE);
             buttonCollapse.setText(">>>");
             layoutMenu.getLayoutParams().width = controller.convertDiptoPix(50);
         }

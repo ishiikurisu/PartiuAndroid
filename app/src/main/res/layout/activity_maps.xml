@@ -42,7 +42,8 @@
             android:layout_height="wrap_content"
             android:text="@string/create_button"
             android:id="@+id/buttonCreate"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:onClick="createEvents"/>
     </LinearLayout>
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
