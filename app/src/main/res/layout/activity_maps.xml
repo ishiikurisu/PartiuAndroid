@@ -22,11 +22,11 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:id="@+id/imageUser"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="0.30"
-            android:src="@android:drawable/star_on" />
+            android:layout_weight="0.3"
+            android:src="@android:drawable/ic_dialog_map" />
 
         <Button
             android:layout_width="wrap_content"

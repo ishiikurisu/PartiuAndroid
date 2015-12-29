@@ -1,6 +1,5 @@
 package rocks.crisjr.partiusketch;
 
-import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,24 +33,14 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         mapFragment.getMapAsync(this);
 
         // add collapsible abilities to menu
-        button = (Button) findViewById(R.id.buttonColl);
+        button = (Button) findViewById(R.id.buttonCollapse);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 collapseMenu();
             }
         });
-
-        // add returning ability to back button
-        button = (Button) findViewById(R.id.buttonBack);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*startActivity();*/
-            }
-        });
     }
-
 
     /**
      * Adds a collapsible ability to the sidebar menu
@@ -59,19 +48,16 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
     void collapseMenu() {
         MapController controller = new MapController(getApplicationContext());
         LinearLayout layoutMenu = (LinearLayout) findViewById(R.id.layoutMenu);
-        Button buttonColl = (Button) findViewById(R.id.buttonColl);
+        Button buttonCollapse = (Button) findViewById(R.id.buttonCollapse);
         Button buttonFilter = (Button) findViewById(R.id.buttonFilter);
-        Button buttonBack = (Button) findViewById(R.id.buttonBack);
 
         if (menuCollapsed) {
             buttonFilter.setVisibility(View.VISIBLE);
-            buttonBack.setVisibility(View.VISIBLE);
-            buttonColl.setText("<<<");
+            buttonCollapse.setText("<<<");
             layoutMenu.getLayoutParams().width = controller.convertDiptoPix(150);
         } else {
             buttonFilter.setVisibility(View.INVISIBLE);
-            buttonBack.setVisibility(View.INVISIBLE);
-            buttonColl.setText(">>>");
+            buttonCollapse.setText(">>>");
             layoutMenu.getLayoutParams().width = controller.convertDiptoPix(50);
         }
 
