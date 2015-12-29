@@ -3,8 +3,10 @@ package rocks.crisjr.partiusketch;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -23,7 +25,7 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Button button;
+        MapController controller = new MapController();
 
         /* create map */
         setContentView(R.layout.activity_create);
@@ -32,8 +34,12 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        // add categories to spinner
+        Spinner spinner = (Spinner) findViewById(R.id.spinnerCategory);
+        ArrayAdapter<String> stringArrayAdapter;
+
         // add collapsible abilities to menu
-        button = (Button) findViewById(R.id.buttonCollapse);
+        Button button = (Button) findViewById(R.id.buttonCollapse);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +70,6 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         menuCollapsed = !menuCollapsed;
     }
 
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -82,5 +87,13 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         LatLng sydney = new LatLng(-34, 151);
         myMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         myMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    /**
+     * Callback to "Create event" button on Creation menu
+     * @param view
+     */
+    public void createEvent(View view) {
+
     }
 }

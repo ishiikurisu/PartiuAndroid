@@ -2,6 +2,9 @@ package rocks.crisjr.partiusketch.controller;
 
 import android.content.Context;
 import android.widget.LinearLayout;
+
+import java.util.ArrayList;
+
 import rocks.crisjr.partiusketch.R;
 
 /**
@@ -10,11 +13,26 @@ import rocks.crisjr.partiusketch.R;
 public class MapController {
 
     private Context context;
+    private String[] Categories;
+
+    public MapController() {
+        Categories = new String[2];
+
+        Categories[0] = "Festa";
+        Categories[1] = "Esporte";
+    }
 
     public MapController(Context context) {
+        this();
         this.context = context;
     }
 
+    /* Gets and Sets */
+    public String[] getCategories() {
+        return this.Categories;
+    }
+
+    /* DP/Pixel tools */
     private static float getDensity(Context context){
         float scale = context.getResources().getDisplayMetrics().density;
         return scale;
