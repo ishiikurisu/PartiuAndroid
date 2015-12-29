@@ -16,56 +16,68 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import rocks.crisjr.partiusketch.controller.MapController;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class CreateActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
+    private GoogleMap myMap;
     private boolean menuCollapsed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Button button;
 
         /* create map */
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_create);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        /* add collapsible abilities to menu */
-        Button button = (Button) findViewById(R.id.buttonCollapse);
+        // add collapsible abilities to menu
+        button = (Button) findViewById(R.id.buttonColl);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 collapseMenu();
             }
         });
+
+        // add returning ability to back button
+        button = (Button) findViewById(R.id.buttonBack);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*startActivity();*/
+            }
+        });
     }
 
+
     /**
-     * Adds collapsible abilities to sidebar menu.
+     * Adds a collapsible ability to the sidebar menu
      */
     void collapseMenu() {
         MapController controller = new MapController(getApplicationContext());
         LinearLayout layoutMenu = (LinearLayout) findViewById(R.id.layoutMenu);
-        Button buttonCreate = (Button) findViewById(R.id.buttonCreate);
-        Button buttonSearch = (Button) findViewById(R.id.buttonSearch);
-        Button buttonCollapse = (Button) findViewById(R.id.buttonCollapse);
+        Button buttonColl = (Button) findViewById(R.id.buttonColl);
+        Button buttonFilter = (Button) findViewById(R.id.buttonFilter);
+        Button buttonBack = (Button) findViewById(R.id.buttonBack);
 
         if (menuCollapsed) {
-            buttonCreate.setVisibility(View.VISIBLE);
-            buttonSearch.setVisibility(View.VISIBLE);
-            buttonCollapse.setText("<<<");
+            buttonFilter.setVisibility(View.VISIBLE);
+            buttonBack.setVisibility(View.VISIBLE);
+            buttonColl.setText("<<<");
             layoutMenu.getLayoutParams().width = controller.convertDiptoPix(150);
         } else {
-            buttonCreate.setVisibility(View.INVISIBLE);
-            buttonSearch.setVisibility(View.INVISIBLE);
-            buttonCollapse.setText(">>>");
+            buttonFilter.setVisibility(View.INVISIBLE);
+            buttonBack.setVisibility(View.INVISIBLE);
+            buttonColl.setText(">>>");
             layoutMenu.getLayoutParams().width = controller.convertDiptoPix(50);
         }
 
         menuCollapsed = !menuCollapsed;
     }
+
 
     /**
      * Manipulates the map once available.
@@ -78,16 +90,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        myMap = googleMap;
 
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-    }
-
-    public void searchEvents(View view) {
-        Intent intent = new Intent(this, CreateActivity.class);
-        startActivity(intent);
+        myMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        myMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }

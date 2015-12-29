@@ -12,38 +12,34 @@
         android:layout_width="150dp"
         android:layout_height="match_parent"
         android:weightSum="1">
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="&lt;&lt;&lt;"
-            android:id="@+id/buttonCollapse"
-            android:layout_gravity="center_horizontal" />
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/imageUser"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.30"
-            android:src="@android:drawable/star_on" />
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonBack"
+                android:text="@string/back_button"/>
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="&lt;&lt;&lt;"
+                android:id="@+id/buttonColl"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search_button"
-            android:id="@+id/buttonSearch"
-            android:layout_gravity="center_horizontal"
-            android:onClick="searchEvents"/>
 
         <Button
-            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/create_button"
-            android:id="@+id/buttonCreate"
+            android:text="@string/filter_button"
+            android:id="@+id/buttonFilter"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
+
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -52,5 +48,5 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="rocks.crisjr.partiusketch.MapsActivity" />
+        tools:context="rocks.crisjr.partiusketch.CreateActivity" />
 </LinearLayout>

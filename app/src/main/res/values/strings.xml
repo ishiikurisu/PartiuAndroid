@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">PartiuSketch</string>
     <string name="title_activity_maps">Map</string>
+    <string name="search_button">Filtrar eventos</string>
+    <string name="create_button">Criar evento</string>
+    <string name="filter_button">Filtrar</string>
+    <string name="title_activity_create">Create</string>
+    <string name="back_button">Voltar</string>
 </resources>
