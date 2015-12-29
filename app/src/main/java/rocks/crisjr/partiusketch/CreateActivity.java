@@ -36,7 +36,14 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
 
         // add categories to spinner
         Spinner spinner = (Spinner) findViewById(R.id.spinnerCategory);
-        ArrayAdapter<String> stringArrayAdapter;
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_spinner_item,
+            controller.getCategories();
+        );
+        stringArrayAdapter.setDropDownViewResource(
+            android.R.layout.simple_spinner_item_dropdown_item);
+        spinner.setAdapter(stringArrayAdapter);
 
         // add collapsible abilities to menu
         Button button = (Button) findViewById(R.id.buttonCollapse);
