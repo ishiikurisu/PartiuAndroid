@@ -1,5 +1,6 @@
 package rocks.crisjr.partiusketch;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -15,7 +17,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import rocks.crisjr.partiusketch.controller.CreateController;
 import rocks.crisjr.partiusketch.controller.MapController;
+import rocks.crisjr.partiusketch.model.entity.Event;
 
 public class CreateActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -39,10 +43,9 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(
             this,
             android.R.layout.simple_spinner_item,
-            controller.getCategories();
+            controller.getCategories()
         );
-        stringArrayAdapter.setDropDownViewResource(
-            android.R.layout.simple_spinner_item_dropdown_item);
+        stringArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(stringArrayAdapter);
 
         // add collapsible abilities to menu
@@ -101,6 +104,17 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
      * @param view
      */
     public void createEvent(View view) {
+        CreateController controller = new CreateController();
+        String name, local, description;
 
+        TextView text = (TextView) findViewById(R.id.editName);
+        name = (String) text.getText();
+        text = (TextView) findViewById(R.id.editLocal);
+        local = (String) text.getText();
+        text = (TextView) findViewById(R.id.editDescription);
+        description = (String) text.getText();
+        controller.createEvent(name, local, description);
+
+        startActivity(new Intent(this, MapsActivity.class));
     }
 }
