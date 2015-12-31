@@ -130,11 +130,11 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         int category;
 
         TextView text = (TextView) findViewById(R.id.editName);
-        name = (String) text.getText();
+        name = text.getText().toString();
         text = (TextView) findViewById(R.id.editLocal);
-        local = (String) text.getText();
+        local = text.getText().toString();
         text = (TextView) findViewById(R.id.editDescription);
-        description = (String) text.getText();
+        description = text.getText().toString();
         Spinner spinner = (Spinner) findViewById(R.id.spinnerCategory);
         category = spinner.getSelectedItemPosition();
 
