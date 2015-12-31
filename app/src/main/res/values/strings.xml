@@ -11,4 +11,5 @@
     <string name="event_category">Categoria</string>
     <string name="event_local">Local</string>
     <string name="event_description">Descrição</string>
+    <string name="event_created">Evento criado!</string>
 </resources>

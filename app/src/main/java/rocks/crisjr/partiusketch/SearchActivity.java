@@ -13,12 +13,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import rocks.crisjr.partiusketch.controller.MapController;
+import rocks.crisjr.partiusketch.controller.BasicController;
 
 public class SearchActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap myMap;
     private boolean menuCollapsed = false;
+    private BasicController controller = (BasicController) getIntent().getSerializableExtra("controller");;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,21 +39,24 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
     }
 
     void collapseMenu() {
-        MapController controller = new MapController(getApplicationContext());
+        controller.setContext(getApplicationContext());
         LinearLayout layoutMenu = (LinearLayout) findViewById(R.id.layoutMenu);
         Button buttonCollapse = (Button) findViewById(R.id.buttonCollapse);
         Button buttonFilter = (Button) findViewById(R.id.buttonFilter);
+        int visibility = View.INVISIBLE;
+        String collapsedText = ">>>";
+        int width = controller.convertDiptoPix(50);
 
         if (menuCollapsed) {
-            buttonFilter.setVisibility(View.VISIBLE);
-            buttonCollapse.setText("<<<");
-            layoutMenu.getLayoutParams().width = controller.convertDiptoPix(150);
-        } else {
-            buttonFilter.setVisibility(View.INVISIBLE);
-            buttonCollapse.setText(">>>");
-            layoutMenu.getLayoutParams().width = controller.convertDiptoPix(50);
+            visibility = View.VISIBLE;
+            collapsedText = "<<<";
+            width = controller.convertDiptoPix(150);
         }
 
+        controller.shit.concat(" smith");
+        buttonFilter.setVisibility(visibility);
+        buttonCollapse.setText(collapsedText);
+        layoutMenu.getLayoutParams().width = width;
         menuCollapsed = !menuCollapsed;
     }
 

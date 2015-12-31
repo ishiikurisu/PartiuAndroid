@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -23,12 +25,11 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
 
     private GoogleMap myMap;
     private boolean menuCollapsed = false;
-    private BasicController controller;
+    private BasicController controller = new BasicController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        controller = (BasicController) getIntent().getSerializableExtra("controller");
 
         /* create map */
         setContentView(R.layout.activity_create);
@@ -135,6 +136,10 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         category = spinner.getSelectedItemPosition();
 
         controller.createEvent(name, local, description, category);
+        Toast.makeText(getApplicationContext(),
+                       getResources().getString(R.string.event_created),
+                       Toast.LENGTH_LONG).show();
+        controller.shit.concat(" frank");
         finish();
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -89,14 +90,15 @@ implements OnMapReadyCallback {
         myMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
+    /* /!\ intent.putExtra(...) crashes application! Beware of that! /!\ */
     public void searchEvents(View view) {
         Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra("controller", controller);
         startActivity(intent);
     }
 
     public void createEvents(View view) {
         Intent intent = new Intent(this, CreateActivity.class);
-        intent.putExtra("controller", controller);
         startActivity(intent);
     }
 }
