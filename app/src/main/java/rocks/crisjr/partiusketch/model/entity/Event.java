@@ -6,7 +6,7 @@ package rocks.crisjr.partiusketch.model.entity;
 public class Event {
     private String name;
     private String description;
-    private String category;
+    private int category;
     private String local;
 
     public Event() {
@@ -29,7 +29,7 @@ public class Event {
         return this.local;
     }
 
-    public String setCategory(String category) {
+    public int setCategory(int category) {
         this.category = category;
         return this.category;
     }

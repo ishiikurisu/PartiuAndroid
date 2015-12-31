@@ -1,11 +1,13 @@
 package rocks.crisjr.partiusketch;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -66,17 +68,36 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         LinearLayout layoutMenu = (LinearLayout) findViewById(R.id.layoutMenu);
         Button buttonCollapse = (Button) findViewById(R.id.buttonCollapse);
         Button buttonCreate = (Button) findViewById(R.id.buttonCreate);
+        TextView textName = (TextView) findViewById(R.id.textName);
+        TextView textCategory = (TextView) findViewById(R.id.textCategory);
+        TextView textLocal = (TextView) findViewById(R.id.textLocal);
+        TextView textDescription = (TextView) findViewById(R.id.textDescription);
+        Spinner spinner = (Spinner) findViewById(R.id.spinnerCategory);
+        EditText editName = (EditText) findViewById(R.id.editName);
+        EditText editLocal = (EditText) findViewById(R.id.editLocal);
+        EditText editDescription = (EditText) findViewById(R.id.editDescription);
 
-        if (menuCollapsed) {
-            buttonCreate.setVisibility(View.VISIBLE);
-            buttonCollapse.setText("<<<");
-            layoutMenu.getLayoutParams().width = controller.convertDiptoPix(150);
-        } else {
-            buttonCreate.setVisibility(View.INVISIBLE);
-            buttonCollapse.setText(">>>");
-            layoutMenu.getLayoutParams().width = controller.convertDiptoPix(50);
+        String collapseText = "<<<";
+        int visibility = View.VISIBLE;
+        int width = controller.convertDiptoPix(150);
+
+        if (!menuCollapsed) {
+            visibility = View.INVISIBLE;
+            collapseText = ">>>";
+            width = controller.convertDiptoPix(50);
         }
 
+        textCategory.setVisibility(visibility);
+        textDescription.setVisibility(visibility);
+        textLocal.setVisibility(visibility);
+        textName.setVisibility(visibility);
+        buttonCreate.setVisibility(visibility);
+        spinner.setVisibility(visibility);
+        editName.setVisibility(visibility);
+        editDescription.setVisibility(visibility);
+        editLocal.setVisibility(visibility);
+        buttonCollapse.setText(collapseText);
+        layoutMenu.getLayoutParams().width = width;
         menuCollapsed = !menuCollapsed;
     }
 
@@ -106,6 +127,7 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
     public void createEvent(View view) {
         CreateController controller = new CreateController();
         String name, local, description;
+        int category;
 
         TextView text = (TextView) findViewById(R.id.editName);
         name = (String) text.getText();
@@ -113,8 +135,10 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         local = (String) text.getText();
         text = (TextView) findViewById(R.id.editDescription);
         description = (String) text.getText();
-        controller.createEvent(name, local, description);
+        Spinner spinner = (Spinner) findViewById(R.id.spinnerCategory);
+        category = spinner.getSelectedItemPosition();
 
-        startActivity(new Intent(this, MapsActivity.class));
+        controller.createEvent(name, local, description, category);
+        finishActivity(Activity.RESULT_OK);
     }
 }

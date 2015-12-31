@@ -22,6 +22,7 @@
             android:layout_gravity="center"/>
 
         <TextView
+            android:id="@+id/textName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -35,6 +36,7 @@
             android:layout_gravity="center"/>
 
         <TextView
+            android:id="@+id/textCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -47,6 +49,7 @@
             android:layout_gravity="center_horizontal" />
 
         <TextView
+            android:id="@+id/textLocal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -60,6 +63,7 @@
             android:layout_gravity="center"/>
 
         <TextView
+            android:id="@+id/textDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
