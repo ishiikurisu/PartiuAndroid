@@ -11,27 +11,24 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import rocks.crisjr.partiusketch.controller.CreateController;
-import rocks.crisjr.partiusketch.controller.MapController;
-import rocks.crisjr.partiusketch.model.entity.Event;
+import rocks.crisjr.partiusketch.controller.BasicController;
 
 public class CreateActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap myMap;
     private boolean menuCollapsed = false;
+    private BasicController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MapController controller = new MapController();
+        controller = (BasicController) getIntent().getSerializableExtra("controller");
 
         /* create map */
         setContentView(R.layout.activity_create);
@@ -64,7 +61,7 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
      * Adds a collapsible ability to the sidebar menu
      */
     void collapseMenu() {
-        MapController controller = new MapController(getApplicationContext());
+        controller.setContext(getApplicationContext());
         LinearLayout layoutMenu = (LinearLayout) findViewById(R.id.layoutMenu);
         Button buttonCollapse = (Button) findViewById(R.id.buttonCollapse);
         Button buttonCreate = (Button) findViewById(R.id.buttonCreate);
@@ -125,7 +122,6 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
      * @param view
      */
     public void createEvent(View view) {
-        CreateController controller = new CreateController();
         String name, local, description;
         int category;
 
@@ -139,6 +135,6 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         category = spinner.getSelectedItemPosition();
 
         controller.createEvent(name, local, description, category);
-        finishActivity(Activity.RESULT_OK);
+        finish();
     }
 }

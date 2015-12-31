@@ -14,12 +14,15 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import rocks.crisjr.partiusketch.controller.MapController;
+import rocks.crisjr.partiusketch.controller.BasicController;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity
+extends FragmentActivity
+implements OnMapReadyCallback {
 
     private GoogleMap myMap;
     private boolean menuCollapsed = false;
+    private BasicController controller = new BasicController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +49,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * Adds collapsible abilities to sidebar menu.
      */
     void collapseMenu() {
-        MapController controller = new MapController(getApplicationContext());
         LinearLayout layoutMenu = (LinearLayout) findViewById(R.id.layoutMenu);
         Button buttonCreate = (Button) findViewById(R.id.buttonCreate);
         Button buttonSearch = (Button) findViewById(R.id.buttonSearch);
         Button buttonCollapse = (Button) findViewById(R.id.buttonCollapse);
 
+        controller.setContext(getApplicationContext());
         if (menuCollapsed) {
             buttonCreate.setVisibility(View.VISIBLE);
             buttonSearch.setVisibility(View.VISIBLE);
@@ -92,6 +95,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void createEvents(View view) {
-        startActivity(new Intent(this, CreateActivity.class));
+        Intent intent = new Intent(this, CreateActivity.class);
+        intent.putExtra("controller", controller);
+        startActivity(intent);
     }
 }

@@ -15,19 +15,5 @@ extends BasicController {
         db = new Database();
     }
 
-    /**
-     * Creates an event to add to the database
-     * @param name
-     * @param local
-     * @param description
-     * @param category
-     */
-    public void createEvent(String name, String local, String description, int category) {
-        Event event = new Event();
-        event.setName(name);
-        event.setLocal(local);
-        event.setDescription(description);
-        event.setCategory(category);
-        db.addEvent(event);
-    }
+
 }

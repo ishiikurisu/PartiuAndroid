@@ -2,14 +2,18 @@ package rocks.crisjr.partiusketch.controller;
 
 import android.content.Context;
 
+import java.io.Serializable;
+
 import rocks.crisjr.partiusketch.model.Database;
+import rocks.crisjr.partiusketch.model.entity.Event;
 
 /**
  * This class attempts to provide the basic functionality needed across every
  * controller in the application.
  * @author Cris Joe Jr. (cristianoalvesjr@gmail.com)
  */
-public class BasicController {
+public class BasicController
+implements Serializable {
     private Context context;
     protected String[] categories;
     static protected Database db;
@@ -26,6 +30,11 @@ public class BasicController {
     /* Gets and Sets */
     public String[] getCategories() {
         return this.categories;
+    }
+
+    public Context setContext(Context context) {
+        this.context = context;
+        return this.context;
     }
 
     /* DP/Pixel tools */
@@ -54,4 +63,20 @@ public class BasicController {
         return (int)((pixel - 0.5f)/scale);
     }
 
+    /* Event capabilities */
+    /**
+     * Creates an event to add to the database
+     * @param name
+     * @param local
+     * @param description
+     * @param category
+     */
+    public void createEvent(String name, String local, String description, int category) {
+        Event event = new Event();
+        event.setName(name);
+        event.setLocal(local);
+        event.setDescription(description);
+        event.setCategory(category);
+        db.addEvent(event);
+    }
 }
