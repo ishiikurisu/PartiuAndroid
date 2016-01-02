@@ -7,10 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -19,6 +22,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Date;
+
 import rocks.crisjr.partiusketch.controller.BasicController;
 
 public class CreateActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -63,7 +69,7 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
      */
     void collapseMenu() {
         controller.setContext(getApplicationContext());
-        LinearLayout layoutMenu = (LinearLayout) findViewById(R.id.layoutMenu);
+        ScrollView viewMenu = (ScrollView) findViewById(R.id.viewMenu);
         Button buttonCollapse = (Button) findViewById(R.id.buttonCollapse);
         Button buttonCreate = (Button) findViewById(R.id.buttonCreate);
         TextView textName = (TextView) findViewById(R.id.textName);
@@ -74,6 +80,8 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         EditText editName = (EditText) findViewById(R.id.editName);
         EditText editLocal = (EditText) findViewById(R.id.editLocal);
         EditText editDescription = (EditText) findViewById(R.id.editDescription);
+        DatePicker pickerDate = (DatePicker) findViewById(R.id.pickerDate);
+        TimePicker pickerTime = (TimePicker) findViewById(R.id.pickerTime);
 
         String collapseText = "<<<";
         int visibility = View.VISIBLE;
@@ -95,7 +103,9 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         editDescription.setVisibility(visibility);
         editLocal.setVisibility(visibility);
         buttonCollapse.setText(collapseText);
-        layoutMenu.getLayoutParams().width = width;
+        pickerDate.setVisibility(visibility);
+        pickerTime.setVisibility(visibility);
+        viewMenu.getLayoutParams().width = width;
         menuCollapsed = !menuCollapsed;
     }
 

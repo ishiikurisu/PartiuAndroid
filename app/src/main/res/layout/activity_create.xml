@@ -4,86 +4,113 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
-    <LinearLayout
-        android:id="@+id/layoutMenu"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="@color/colorPrimaryDark"
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="150dp"
         android:layout_height="match_parent"
-        android:weightSum="1">
+        android:id="@+id/viewMenu">
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="&lt;&lt;&lt;"
-            android:id="@+id/buttonCollapse"
-            android:layout_gravity="center"/>
-
-        <TextView
-            android:id="@+id/textName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:text="@string/event_name"/>
-
-        <EditText
-            android:id="@+id/editName"
-            android:inputType="text"
+        <LinearLayout
+            android:id="@+id/layoutMenu"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:weightSum="1">
 
-        <TextView
-            android:id="@+id/textCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:text="@string/event_category"/>
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="&lt;&lt;&lt;"
+                android:id="@+id/buttonCollapse"
+                android:layout_gravity="center"/>
 
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinnerCategory"
-            android:layout_gravity="center_horizontal" />
+            <TextView
+                android:id="@+id/textName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="@string/event_name"/>
 
-        <TextView
-            android:id="@+id/textLocal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:text="@string/event_local"/>
+            <EditText
+                android:id="@+id/editName"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
 
-        <EditText
-            android:id="@+id/editLocal"
-            android:inputType="text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/textCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="@string/event_category"/>
 
-        <TextView
-            android:id="@+id/textDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:text="@string/event_description"/>
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinnerCategory"
+                android:layout_gravity="center_horizontal" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/editDescription"/>
+            <TextView
+                android:id="@+id/textLocal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="@string/event_local"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/create_button"
-            android:id="@+id/buttonCreate"
-            android:layout_gravity="center"
-            android:onClick="createEvent"/>
+            <EditText
+                android:id="@+id/editLocal"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:id="@+id/textTime"
+                android:text="@string/event_time" />
+
+            <DatePicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:datePickerMode="spinner"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/pickerDate"/>
+            <TimePicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:timePickerMode="spinner"
+                android:id="@+id/pickerTime" />
+
+            <TextView
+                android:id="@+id/textDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="start"
+                android:text="@string/event_description"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/editDescription"
+                android:inputType="textMultiLine" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/create_button"
+                android:id="@+id/buttonCreate"
+                android:layout_gravity="center"
+                android:onClick="createEvent"/>
+
+        </LinearLayout>
+    </ScrollView>
 
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
