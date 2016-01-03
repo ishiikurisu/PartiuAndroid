@@ -4,15 +4,18 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/viewMenu"
+        android:background="@color/colorPrimaryDark"
         android:layout_width="150dp"
-        android:layout_height="match_parent"
-        android:id="@+id/viewMenu">
+        android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/layoutMenu"
             xmlns:android="http://schemas.android.com/apk/res/android"
-            android:background="@color/colorPrimaryDark"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -31,6 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:textColor="@color/colorText"
                 android:text="@string/event_name"/>
 
             <EditText
@@ -38,6 +42,7 @@
                 android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorText"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -45,12 +50,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:textColor="@color/colorText"
                 android:text="@string/event_category"/>
 
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/spinnerCategory"
+                android:background="@color/colorText"
                 android:layout_gravity="center_horizontal" />
 
             <TextView
@@ -58,6 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:textColor="@color/colorText"
                 android:text="@string/event_local"/>
 
             <EditText
@@ -65,6 +73,7 @@
                 android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorText"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -72,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:id="@+id/textTime"
+                android:textColor="@color/colorText"
                 android:text="@string/event_time" />
 
             <Button
@@ -81,13 +91,21 @@
                 android:onClick="onClickButtonDate"
                 android:text="@string/pick_data_button"
                 android:id="@+id/buttonDate"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:onClick="onClickButtonTime"
+                android:text="@string/pick_time"
+                android:id="@+id/buttonTime"/>
 
             <TextView
                 android:id="@+id/textDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="start"
                 android:gravity="start"
+                android:textColor="@color/colorText"
                 android:text="@string/event_description"/>
 
             <EditText
@@ -95,6 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:id="@+id/editDescription"
+                android:textColor="@color/colorText"
                 android:inputType="textMultiLine" />
 
             <Button
@@ -106,7 +125,7 @@
                 android:onClick="createEvent"/>
 
         </LinearLayout>
-    </ScrollView>
+    </ScrollView></LinearLayout>
 
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"

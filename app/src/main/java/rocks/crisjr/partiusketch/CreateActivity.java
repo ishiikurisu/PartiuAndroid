@@ -25,9 +25,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.sql.Time;
 import java.util.Calendar;
+import java.util.concurrent.TimeoutException;
 
 import rocks.crisjr.partiusketch.controller.BasicController;
+import rocks.crisjr.partiusketch.controller.TimeController;
 
 public class CreateActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -79,6 +82,7 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         TextView textCategory = (TextView) findViewById(R.id.textCategory);
         TextView textLocal = (TextView) findViewById(R.id.textLocal);
         TextView textDescription = (TextView) findViewById(R.id.textDescription);
+        TextView textDate = (TextView) findViewById(R.id.textTime);
         Spinner spinner = (Spinner) findViewById(R.id.spinnerCategory);
         EditText editName = (EditText) findViewById(R.id.editName);
         EditText editLocal = (EditText) findViewById(R.id.editLocal);
@@ -99,6 +103,7 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         textDescription.setVisibility(visibility);
         textLocal.setVisibility(visibility);
         textName.setVisibility(visibility);
+        textDate.setVisibility(visibility);
         buttonCreate.setVisibility(visibility);
         spinner.setVisibility(visibility);
         editName.setVisibility(visibility);
@@ -158,23 +163,44 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
      * @param view
      */
     public void onClickButtonDate(View view) {
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-
         DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                TimeController tc = new TimeController();
+                String date = tc.getDate(year, monthOfYear, dayOfMonth);
                 Toast.makeText(getApplicationContext(),
-                               "Event set to " + year + "." + (monthOfYear+1) + "." + dayOfMonth,
+                               getResources().getString(R.string.event_set_to) + date,
                                Toast.LENGTH_SHORT).show();
+                Button b = (Button) findViewById(R.id.buttonDate);
+                b.setText(date);
             }
         };
         DatePickerDialog dialog = new DatePickerDialog(CreateActivity.this,
                                                        listener,
-                                                       year,
-                                                       month,
-                                                       day);
+                                                       calendar.get(Calendar.YEAR),
+                                                       calendar.get(Calendar.MONTH),
+                                                       calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
+    }
+
+    public void onClickButtonTime(View view) {
+        TimePickerDialog.OnTimeSetListener listener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                TimeController tc = new TimeController();
+                String hour = tc.getTime(hourOfDay, minute);
+                Toast.makeText(getApplicationContext(),
+                        getResources().getString(R.string.event_set_to) + hour,
+                        Toast.LENGTH_SHORT).show();
+                Button b = (Button) findViewById(R.id.buttonTime);
+                b.setText(hour);
+            }
+        };
+        TimePickerDialog dialog = new TimePickerDialog(CreateActivity.this,
+                                                       listener,
+                                                       calendar.get(Calendar.HOUR_OF_DAY),
+                                                       calendar.get(Calendar.MINUTE),
+                                                       true);
         dialog.show();
     }
 }
