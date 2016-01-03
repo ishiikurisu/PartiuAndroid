@@ -19,7 +19,7 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
 
     private GoogleMap myMap;
     private boolean menuCollapsed = false;
-    private BasicController controller = (BasicController) getIntent().getSerializableExtra("controller");;
+    private BasicController controller = (BasicController) getIntent().getSerializableExtra("controller");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,6 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
             width = controller.convertDiptoPix(150);
         }
 
-        controller.shit.concat(" smith");
         buttonFilter.setVisibility(visibility);
         buttonCollapse.setText(collapsedText);
         layoutMenu.getLayoutParams().width = width;

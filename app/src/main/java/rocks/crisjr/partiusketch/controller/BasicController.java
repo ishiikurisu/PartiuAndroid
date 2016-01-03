@@ -17,7 +17,6 @@ implements Serializable {
     private Context context;
     protected String[] categories;
     protected Database db;
-    public String shit = "joe";
 
     public BasicController() {
         db = new Database();

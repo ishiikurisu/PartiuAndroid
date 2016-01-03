@@ -13,4 +13,5 @@
     <string name="event_description">Descrição</string>
     <string name="event_created">Evento criado!</string>
     <string name="event_time">Data</string>
+    <string name="pick_data_button">Escolher data</string>
 </resources>

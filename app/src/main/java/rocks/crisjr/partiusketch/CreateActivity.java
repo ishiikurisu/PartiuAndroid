@@ -1,6 +1,8 @@
 package rocks.crisjr.partiusketch;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -23,7 +25,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import rocks.crisjr.partiusketch.controller.BasicController;
 
@@ -32,6 +34,7 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
     private GoogleMap myMap;
     private boolean menuCollapsed = false;
     private BasicController controller = new BasicController();
+    private Calendar calendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +83,7 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         EditText editName = (EditText) findViewById(R.id.editName);
         EditText editLocal = (EditText) findViewById(R.id.editLocal);
         EditText editDescription = (EditText) findViewById(R.id.editDescription);
-        DatePicker pickerDate = (DatePicker) findViewById(R.id.pickerDate);
-        TimePicker pickerTime = (TimePicker) findViewById(R.id.pickerTime);
+        Button buttonDate = (Button) findViewById(R.id.buttonDate);
 
         String collapseText = "<<<";
         int visibility = View.VISIBLE;
@@ -103,8 +105,7 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         editDescription.setVisibility(visibility);
         editLocal.setVisibility(visibility);
         buttonCollapse.setText(collapseText);
-        pickerDate.setVisibility(visibility);
-        pickerTime.setVisibility(visibility);
+        buttonDate.setVisibility(visibility);
         viewMenu.getLayoutParams().width = width;
         menuCollapsed = !menuCollapsed;
     }
@@ -149,7 +150,31 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         Toast.makeText(getApplicationContext(),
                        getResources().getString(R.string.event_created),
                        Toast.LENGTH_LONG).show();
-        controller.shit.concat(" frank");
         finish();
+    }
+
+    /**
+     * Callback to "Pick date" button on creation menu
+     * @param view
+     */
+    public void onClickButtonDate(View view) {
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Toast.makeText(getApplicationContext(),
+                               "Event set to " + year + "." + (monthOfYear+1) + "." + dayOfMonth,
+                               Toast.LENGTH_SHORT).show();
+            }
+        };
+        DatePickerDialog dialog = new DatePickerDialog(CreateActivity.this,
+                                                       listener,
+                                                       year,
+                                                       month,
+                                                       day);
+        dialog.show();
     }
 }
