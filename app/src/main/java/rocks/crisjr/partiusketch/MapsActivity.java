@@ -1,13 +1,16 @@
 package rocks.crisjr.partiusketch;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -88,6 +91,23 @@ implements OnMapReadyCallback {
         LatLng sydney = new LatLng(-34, 151);
         myMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         myMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    /**
+     * Method to check if Google Services is working
+     */
+    @Override
+    protected void onResume() {
+        GoogleApiAvailability api = GoogleApiAvailability.getInstance();
+        Context context = getApplicationContext();
+        String result = "nope :(";
+
+        super.onResume();
+        if (api.isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS) {
+            result = "yep :)";
+        }
+
+        // Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
     }
 
     /* /!\ intent.putExtra(...) crashes application! Beware of that! /!\ */

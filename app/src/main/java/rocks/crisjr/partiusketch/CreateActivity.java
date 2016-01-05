@@ -75,7 +75,7 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
      */
     void collapseMenu() {
         controller.setContext(getApplicationContext());
-        ScrollView viewMenu = (ScrollView) findViewById(R.id.viewMenu);
+        LinearLayout viewMenu = (LinearLayout) findViewById(R.id.viewMenu);
         Button buttonCollapse = (Button) findViewById(R.id.buttonCollapse);
         Button buttonCreate = (Button) findViewById(R.id.buttonCreate);
         TextView textName = (TextView) findViewById(R.id.textName);
@@ -88,6 +88,7 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         EditText editLocal = (EditText) findViewById(R.id.editLocal);
         EditText editDescription = (EditText) findViewById(R.id.editDescription);
         Button buttonDate = (Button) findViewById(R.id.buttonDate);
+        Button buttonTime = (Button) findViewById(R.id.buttonTime);
 
         String collapseText = "<<<";
         int visibility = View.VISIBLE;
@@ -111,6 +112,7 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         editLocal.setVisibility(visibility);
         buttonCollapse.setText(collapseText);
         buttonDate.setVisibility(visibility);
+        buttonTime.setVisibility(visibility);
         viewMenu.getLayoutParams().width = width;
         menuCollapsed = !menuCollapsed;
     }
