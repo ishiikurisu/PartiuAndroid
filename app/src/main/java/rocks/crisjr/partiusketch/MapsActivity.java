@@ -3,6 +3,7 @@ package rocks.crisjr.partiusketch;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
@@ -110,13 +111,23 @@ implements OnMapReadyCallback {
         // Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
     }
 
-    /* /!\ intent.putExtra(...) crashes application! Beware of that! /!\ */
+    /**
+     * Callback to "Search Events" button. Sends the application's main controller
+     * to the Search Activity.
+     * TODO: Test if the other activity can alter this object.
+     * @param view
+     */
     public void searchEvents(View view) {
         Intent intent = new Intent(this, SearchActivity.class);
-        intent.putExtra("controller", controller);
+        if (controller == null) controller = new BasicController();
+        intent.putExtra("controller", (Parcelable) controller);
         startActivity(intent);
     }
 
+    /**
+     * Callback to "Create Events" button
+     * @param view
+     */
     public void createEvents(View view) {
         Intent intent = new Intent(this, CreateActivity.class);
         startActivity(intent);

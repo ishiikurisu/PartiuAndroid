@@ -1,6 +1,8 @@
 package rocks.crisjr.partiusketch.controller;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.io.Serializable;
 
@@ -9,22 +11,19 @@ import rocks.crisjr.partiusketch.model.entity.Event;
 
 /**
  * This class attempts to provide the basic functionality needed across every
- * controller in the application.
+ * controller in the application; and the access to the database.
  * @author Cris Joe Jr. (cristianoalvesjr@gmail.com)
  */
 public class BasicController
-implements Serializable {
-    private Context context;
-    protected String[] categories;
-    protected Database db;
+implements Parcelable {
+    private Context context = null;
+    protected String[] categories = null;
+    protected Database db = null;
+    private String name = "Joe";
 
     public BasicController() {
         db = new Database();
         categories = db.getCategories();
-    }
-
-    public BasicController(Context context) {
-        this.context = context;
     }
 
     /* Gets and Sets */
@@ -35,6 +34,15 @@ implements Serializable {
     public Context setContext(Context context) {
         this.context = context;
         return this.context;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String setName(String name) {
+        this.name = name;
+        return this.name;
     }
 
     /* DP/Pixel tools */
@@ -79,4 +87,30 @@ implements Serializable {
         event.setCategory(category);
         db.addEvent(event);
     }
+
+    /* parcelable implementations */
+    public BasicController(Parcel parcel) {
+        db = (Database) parcel.readSerializable();
+        categories = db.getCategories();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeSerializable(this.db);
+    }
+
+    public static final Parcelable.Creator<BasicController> CREATOR = new Parcelable.Creator<BasicController>() {
+        public BasicController createFromParcel(Parcel in) {
+            return new BasicController(in);
+        }
+
+        public BasicController[] newArray(int size) {
+            return new BasicController[size];
+        }
+    };
 }

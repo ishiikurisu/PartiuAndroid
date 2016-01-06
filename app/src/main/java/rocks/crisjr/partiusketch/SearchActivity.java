@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,7 +20,7 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
 
     private GoogleMap myMap;
     private boolean menuCollapsed = false;
-    private BasicController controller = (BasicController) getIntent().getSerializableExtra("controller");
+    private BasicController controller = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
     }
 
     void collapseMenu() {
+        controller = control();
         controller.setContext(getApplicationContext());
         LinearLayout layoutMenu = (LinearLayout) findViewById(R.id.layoutMenu);
         Button buttonCollapse = (Button) findViewById(R.id.buttonCollapse);
@@ -60,6 +62,16 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
     }
 
     /**
+     * Gets the controller sent from the parent activity
+     * @return
+     */
+    private BasicController control() {
+        if (controller == null)
+            controller = getIntent().getExtras().getParcelable("controller");
+        return controller;
+    }
+
+    /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
      * This is where we can add markers or lines, add listeners or move the camera. In this case,
@@ -76,5 +88,13 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
         LatLng sydney = new LatLng(-34, 151);
         myMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         myMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    /**
+     * Callback to "Filter" button
+     * @param view
+     */
+    public void onClickButtonFilter(View view) {
+        Toast.makeText(getApplicationContext(), control().getName(), Toast.LENGTH_SHORT).show();
     }
 }
