@@ -40,7 +40,7 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
     }
 
     void collapseMenu() {
-        controller = control();
+        controller = getController();
         controller.setContext(getApplicationContext());
         LinearLayout layoutMenu = (LinearLayout) findViewById(R.id.layoutMenu);
         Button buttonCollapse = (Button) findViewById(R.id.buttonCollapse);
@@ -65,7 +65,7 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
      * Gets the controller sent from the parent activity
      * @return
      */
-    private BasicController control() {
+    private BasicController getController() {
         if (controller == null)
             controller = getIntent().getExtras().getParcelable("controller");
         return controller;
@@ -95,6 +95,8 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
      * @param view
      */
     public void onClickButtonFilter(View view) {
-        Toast.makeText(getApplicationContext(), control().getName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),
+                       getController().getName(),
+                       Toast.LENGTH_SHORT).show();
     }
 }

@@ -36,7 +36,7 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
 
     private GoogleMap myMap;
     private boolean menuCollapsed = false;
-    private BasicController controller = new BasicController();
+    private BasicController controller = null;
     private Calendar calendar = Calendar.getInstance();
 
     @Override
@@ -74,6 +74,7 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
      * Adds a collapsible ability to the sidebar menu
      */
     void collapseMenu() {
+        controller = getController();
         controller.setContext(getApplicationContext());
         LinearLayout viewMenu = (LinearLayout) findViewById(R.id.viewMenu);
         Button buttonCollapse = (Button) findViewById(R.id.buttonCollapse);
@@ -118,6 +119,16 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
     }
 
     /**
+     * Gets the controller sent from the main activity
+     * @return main controller
+     */
+    private BasicController getController() {
+        if (controller == null)
+            controller = getIntent().getExtras().getParcelable("controller");
+        return controller;
+    }
+
+    /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
      * This is where we can add markers or lines, add listeners or move the camera. In this case,
@@ -153,6 +164,7 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         Spinner spinner = (Spinner) findViewById(R.id.spinnerCategory);
         category = spinner.getSelectedItemPosition();
 
+        controller = getController();
         controller.createEvent(name, local, description, category);
         Toast.makeText(getApplicationContext(),
                        getResources().getString(R.string.event_created),
