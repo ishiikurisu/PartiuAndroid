@@ -10,12 +10,14 @@ import rocks.crisjr.partiusketch.model.entity.Event;
  */
 public class Database
 implements Serializable {
-    private ArrayList<Event> events;
+    private Event[] events;
     private String[] categories;
+    private int numberEvents = 0;
 
     public Database() {
         // create events storage
-        events = new ArrayList<>();
+        events = new Event[256];
+        numberEvents = 0;
 
         // create categories
         categories = new String[2];
@@ -30,6 +32,14 @@ implements Serializable {
 
     /* rules */
     public void addEvent(Event event) {
-        events.add(event);
+        if (numberEvents == events.length) {
+            Event[] temp = new Event[2*numberEvents];
+            for (int i = 0; i < numberEvents; ++i)
+                temp[i] = events[i];
+            events = temp;
+        }
+
+        events[numberEvents] = event;
+        numberEvents++;
     }
 }

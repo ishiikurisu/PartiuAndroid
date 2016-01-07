@@ -28,6 +28,8 @@ implements OnMapReadyCallback {
     private GoogleMap myMap;
     private boolean menuCollapsed = false;
     private BasicController controller = new BasicController();
+    final private int CREATE_EVENT_REQUEST = 0;
+    final private int SEARCH_EVENT_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,16 +114,33 @@ implements OnMapReadyCallback {
     }
 
     /**
+     * Method to receive the results of the child activities
+     * @param requestCode
+     * @param resultCode
+     * @param intent
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        switch (requestCode)
+        {
+            case SEARCH_EVENT_REQUEST:
+            case CREATE_EVENT_REQUEST:
+                if (resultCode == RESULT_OK)
+                    controller = intent.getExtras().getParcelable("controller");
+                break;
+        }
+    }
+
+    /**
      * Callback to "Search Events" button. Sends the application's main controller
      * to the Search Activity.
-     * TODO: Test if the other activity can alter this object.
      * @param view
      */
     public void searchEvents(View view) {
         Intent intent = new Intent(this, SearchActivity.class);
-        if (controller == null) controller = new BasicController();
         intent.putExtra("controller", (Parcelable) controller);
-        startActivity(intent);
+        startActivityForResult(intent, SEARCH_EVENT_REQUEST);
     }
 
     /**
@@ -130,6 +149,7 @@ implements OnMapReadyCallback {
      */
     public void createEvents(View view) {
         Intent intent = new Intent(this, CreateActivity.class);
-        startActivity(intent);
+        intent.putExtra("controller", (Parcelable) controller);
+        startActivityForResult(intent, CREATE_EVENT_REQUEST);
     }
 }

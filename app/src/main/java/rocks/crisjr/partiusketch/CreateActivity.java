@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -52,10 +53,11 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
 
         // add categories to spinner
         Spinner spinner = (Spinner) findViewById(R.id.spinnerCategory);
+        controller = getController();
         ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(
-            this,
-            android.R.layout.simple_spinner_item,
-            controller.getCategories()
+                this,
+                android.R.layout.simple_spinner_item,
+                controller.getCategories()
         );
         stringArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(stringArrayAdapter);
@@ -169,7 +171,7 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         Toast.makeText(getApplicationContext(),
                        getResources().getString(R.string.event_created),
                        Toast.LENGTH_LONG).show();
-        finish();
+        endActivity();
     }
 
     /**
@@ -183,7 +185,7 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
                 TimeController tc = new TimeController();
                 String date = tc.getDate(year, monthOfYear, dayOfMonth);
                 Toast.makeText(getApplicationContext(),
-                               getResources().getString(R.string.event_set_to) + date,
+                               getResources().getString(R.string.event_set_to) + " " + date,
                                Toast.LENGTH_SHORT).show();
                 Button b = (Button) findViewById(R.id.buttonDate);
                 b.setText(date);
@@ -197,6 +199,10 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         dialog.show();
     }
 
+    /**
+     * Callback to "Pick time" button
+     * @param view
+     */
     public void onClickButtonTime(View view) {
         TimePickerDialog.OnTimeSetListener listener = new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -216,5 +222,19 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
                                                        calendar.get(Calendar.MINUTE),
                                                        true);
         dialog.show();
+    }
+
+    /**
+     * Actions before ending this activity
+     */
+    private void endActivity() {
+        Intent intent = new Intent();
+        controller = getController();
+
+        controller.setName(controller.getName() + " frank");
+        intent.putExtra("controller", (Parcelable) controller);
+        setResult(Activity.RESULT_OK, intent);
+
+        finish();
     }
 }

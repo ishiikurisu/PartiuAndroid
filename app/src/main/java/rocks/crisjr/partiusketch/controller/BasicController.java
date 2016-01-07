@@ -91,6 +91,7 @@ implements Parcelable {
     /* parcelable implementations */
     public BasicController(Parcel parcel) {
         db = (Database) parcel.readSerializable();
+        name = parcel.readString();
         categories = db.getCategories();
     }
 
@@ -102,6 +103,7 @@ implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeSerializable(this.db);
+        dest.writeString(this.name);
     }
 
     public static final Parcelable.Creator<BasicController> CREATOR = new Parcelable.Creator<BasicController>() {

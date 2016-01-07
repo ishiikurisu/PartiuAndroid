@@ -1,9 +1,11 @@
 package rocks.crisjr.partiusketch.model.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by Cris Joe Jr. (cristianoalvesjr@gmail.com) on 28/12/2015.
  */
-public class Event {
+public class Event implements Serializable {
     private String name;
     private String description;
     private int category;
