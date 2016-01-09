@@ -231,7 +231,7 @@ public class CreateActivity extends FragmentActivity implements OnMapReadyCallba
         Intent intent = new Intent();
         controller = getController();
 
-        controller.setName(controller.getName() + " frank");
+//        controller.setName(controller.getName() + " frank");
         intent.putExtra("controller", (Parcelable) controller);
         setResult(Activity.RESULT_OK, intent);
 

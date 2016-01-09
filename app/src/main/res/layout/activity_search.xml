@@ -21,6 +21,85 @@
             android:id="@+id/buttonCollapse"
             android:layout_gravity="center"/>
 
+        <TextView
+            android:text="@string/event_category"
+            android:layout_gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorText"
+            android:id="@+id/textCategory" />
+
+        <Spinner
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorText"
+            android:id="@+id/spinnerCategory" />
+
+        <TextView
+            android:text="@string/event_name"
+            android:layout_gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorText"
+            android:id="@+id/textName" />
+
+        <EditText
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorText"
+            android:id="@id/editName"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/layoutFrom">
+            <TextView
+                android:text="@string/event_from"
+                android:layout_width="wrap_content"
+                android:textColor="@color/colorText"
+                android:layout_height="wrap_content" />
+            <CheckBox
+                android:onClick="onClickButtonFrom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonFrom"/>
+            <!-- buttonTint property paints the button -->
+        </LinearLayout>
+        <Button
+            android:enabled="false"
+            android:onClick="onClickButtonDateFrom"
+            android:text="@string/pick_data_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonDateFrom" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/layoutTo">
+            <TextView
+                android:text="@string/event_to"
+                android:layout_width="wrap_content"
+                android:textColor="@color/colorText"
+                android:layout_height="wrap_content" />
+            <CheckBox
+                android:onClick="onClickButtonTo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonTo"/>
+        </LinearLayout>
+        <Button
+            android:onClick="onClickButtonDateTo"
+            android:text="@string/pick_data_button"
+            android:enabled="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonDateTo" />
+
+        <!-- TODO: Add radius selector -->
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

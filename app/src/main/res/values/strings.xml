@@ -16,4 +16,6 @@
     <string name="pick_data_button">Escolher data</string>
     <string name="event_set_to">Evento marcado para </string>
     <string name="pick_time">Escolher horário</string>
+    <string name="event_from">De</string>
+    <string name="event_to">Até</string>
 </resources>
