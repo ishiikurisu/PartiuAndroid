@@ -18,4 +18,5 @@
     <string name="pick_time">Escolher horário</string>
     <string name="event_from">De</string>
     <string name="event_to">Até</string>
+    <string name="accessToken" translatable="false">pk.eyJ1IjoiaXNoaWlrdXJpc3UiLCJhIjoiY2lqZ2UzeDF5MDJwdnRzbHQ2ZGxmd2dhNiJ9.suw7_ptzhDhCyHcNyzimuA</string>
 </resources>

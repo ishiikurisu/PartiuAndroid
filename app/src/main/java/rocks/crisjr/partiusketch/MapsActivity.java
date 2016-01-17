@@ -9,23 +9,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import android.app.Activity;
+import android.os.Bundle;
+import com.mapbox.mapboxsdk.constants.Style;
+import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.views.MapView;
 
 import rocks.crisjr.partiusketch.controller.BasicController;
 
 public class MapsActivity
-extends FragmentActivity
-implements OnMapReadyCallback {
+extends FragmentActivity {
 
-    private GoogleMap myMap;
+    private MapView mapView = null;
     private boolean menuCollapsed = false;
     private BasicController controller = new BasicController();
     final private int CREATE_EVENT_REQUEST = 0;
@@ -37,10 +32,11 @@ implements OnMapReadyCallback {
 
         /* create map */
         setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        mapView = (MapView) findViewById(R.id.mapview);
+        mapView.setStyleUrl(Style.MAPBOX_STREETS);
+        mapView.setCenterCoordinate(new LatLng(41.885, -87.679));
+        mapView.setZoomLevel(11);
+        mapView.onCreate(savedInstanceState);
 
         /* add collapsible abilities to menu */
         Button button = (Button) findViewById(R.id.buttonCollapse);
@@ -77,23 +73,34 @@ implements OnMapReadyCallback {
         menuCollapsed = !menuCollapsed;
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        myMap = googleMap;
+    protected void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        myMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        myMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    public void onPause()  {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
     }
 
     /**
@@ -101,16 +108,8 @@ implements OnMapReadyCallback {
      */
     @Override
     protected void onResume() {
-        GoogleApiAvailability api = GoogleApiAvailability.getInstance();
-        Context context = getApplicationContext();
-        String result = "nope :(";
-
         super.onResume();
-        if (api.isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS) {
-            result = "yep :)";
-        }
-
-        // Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+        mapView.onResume();
     }
 
     /**
