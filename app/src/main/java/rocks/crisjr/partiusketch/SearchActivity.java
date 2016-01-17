@@ -16,21 +16,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+
+import com.mapbox.mapboxsdk.constants.Style;
+import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.views.MapView;
 
 import java.util.Calendar;
 
 import rocks.crisjr.partiusketch.controller.BasicController;
 import rocks.crisjr.partiusketch.controller.TimeController;
 
-public class SearchActivity extends FragmentActivity implements OnMapReadyCallback {
+public class SearchActivity extends FragmentActivity {
 
-    private GoogleMap myMap;
+    private MapView mapView = null;
     private boolean menuCollapsed = false;
     private BasicController controller = null;
     private Calendar calendar = Calendar.getInstance();
@@ -40,9 +38,12 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        mapView = (MapView) findViewById(R.id.mapview);
+        mapView.setStyleUrl(Style.MAPBOX_STREETS);
+        mapView.setCenterCoordinate(new LatLng(41.885, -87.679));
+        mapView.setZoomLevel(11);
+        mapView.onCreate(savedInstanceState);
+
         Button button = (Button) findViewById(R.id.buttonCollapse);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +62,42 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
         );
         stringArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(stringArrayAdapter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    public void onPause()  {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
+
+   @Override
+    protected void onResume() {
+        super.onResume();
+        mapView.onResume();
     }
 
     /**
@@ -133,25 +170,6 @@ public class SearchActivity extends FragmentActivity implements OnMapReadyCallba
 //
 //        super.onBackPressed();
 //    }
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        myMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        myMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        myMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-    }
 
     /**
      * Callback to "Filter" button
