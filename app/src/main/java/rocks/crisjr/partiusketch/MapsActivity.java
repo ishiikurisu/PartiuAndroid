@@ -2,9 +2,11 @@ package rocks.crisjr.partiusketch;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
+import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -56,21 +58,36 @@ extends FragmentActivity {
         Button buttonCreate = (Button) findViewById(R.id.buttonCreate);
         Button buttonSearch = (Button) findViewById(R.id.buttonSearch);
         Button buttonCollapse = (Button) findViewById(R.id.buttonCollapse);
+        int visibility = View.INVISIBLE;
+        int width = 50;
+        String text = ">>>";
 
         controller.setContext(getApplicationContext());
+        mapView = (MapView) findViewById(R.id.mapview);
         if (menuCollapsed) {
             buttonCreate.setVisibility(View.VISIBLE);
             buttonSearch.setVisibility(View.VISIBLE);
             buttonCollapse.setText("<<<");
-            layoutMenu.getLayoutParams().width = controller.convertDiptoPix(150);
-        } else {
-            buttonCreate.setVisibility(View.INVISIBLE);
-            buttonSearch.setVisibility(View.INVISIBLE);
-            buttonCollapse.setText(">>>");
-            layoutMenu.getLayoutParams().width = controller.convertDiptoPix(50);
+            visibility = View.VISIBLE;
+            width = 150;
+            text = "<<<";
         }
 
+        width = controller.convertDiptoPix(width);
+        mapView.getLayoutParams().width = getScreenWidth() - width;
+        buttonCreate.setVisibility(visibility);
+        buttonSearch.setVisibility(visibility);
+        buttonCollapse.setText(text);
+        layoutMenu.getLayoutParams().width = width;
         menuCollapsed = !menuCollapsed;
+    }
+
+    private int getScreenWidth() {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        return width;
     }
 
     @Override
@@ -103,9 +120,6 @@ extends FragmentActivity {
         mapView.onSaveInstanceState(outState);
     }
 
-    /**
-     * Method to check if Google Services is working
-     */
     @Override
     protected void onResume() {
         super.onResume();
