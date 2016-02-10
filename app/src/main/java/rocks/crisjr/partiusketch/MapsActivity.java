@@ -8,15 +8,12 @@ import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-
-import android.app.Activity;
-import android.os.Bundle;
 import com.mapbox.mapboxsdk.constants.Style;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.views.MapView;
-
 import rocks.crisjr.partiusketch.controller.BasicController;
 
 public class MapsActivity
@@ -75,10 +72,12 @@ extends FragmentActivity {
 
         width = controller.convertDiptoPix(width);
         mapView.getLayoutParams().width = getScreenWidth() - width;
+        layoutMenu.getLayoutParams().width = width;
         buttonCreate.setVisibility(visibility);
         buttonSearch.setVisibility(visibility);
         buttonCollapse.setText(text);
-        layoutMenu.getLayoutParams().width = width;
+        mapView.invalidate();
+
         menuCollapsed = !menuCollapsed;
     }
 
@@ -135,8 +134,7 @@ extends FragmentActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        switch (requestCode)
-        {
+        switch (requestCode) {
             case SEARCH_EVENT_REQUEST:
             case CREATE_EVENT_REQUEST:
                 if (resultCode == RESULT_OK)
